@@ -1,0 +1,88 @@
+
+# LIBRARY
+# urllib  : http or FTP 를 통한 Download 패키지
+import urllib.request
+
+# 가져올 이미지 url 설정하기
+url = "https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png"
+
+# 가져올 이미지 저장 위치 및 파일 이름 설정하기
+imgName = "c:\Python\daum_logo.png"
+
+# url 파일 저장하기 실행하기
+urllib.request.urlretrieve(url, imgName) # urlretrieve(URL, 저장 파일 경로)
+print("Download Completed")
+
+
+# 파일 즉시 저장하지 않고 메모리 저장한 이후에 파일 저장하기 urlopen
+url = "https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png"
+imgPath = "c:\Python\daum_logo2.png"
+
+download = urllib.request.urlopen(url).read()
+
+# 파일 저장시키기
+# f= open()
+# f.write.("파일에 내용을 적습니다.")
+# f.close()
+
+# with문으로 간단하게 적기
+# with open("a.txt", "w") as f:
+# f.write("파일에 내용을 적습니다.")
+
+with open(imgPath, mode = "wb") as f:  # w는 쓰기 모드, b는 바이너리 모드를 의미함
+          f.write(download)
+
+print("Download Completed")
+
+
+# ============ RSS =================
+
+# 기상청 rss 데이터 가져오기 실
+
+#LIBRARY
+import urllib.request
+import urllib.parse # url 인코딩 모듈
+
+# XML Data 활용
+
+rssUrl = "http://www.kma.go.kr/weather/forecast/mid-term-rss3.jsp"
+
+# 매개 변수
+values = {
+'stnld':'108' # 기상청 지역 위치 값
+}
+
+params = urllib.parse.urlencode(values)
+
+# url 조합하기
+url = rssUrl + "?" + params
+
+data = urllib.request.urlopen(url).read()
+
+
+import sys
+import urllib.request as req # req 로 부르기
+import urllib.parse as parse # 별명 parse
+
+# 명령줄 인수 확인 하기
+if len(sys.argv) <= 1: # 명령줄 인수가 1이하면 오류 메세지 출력
+           print("사용법:python 인수1 인수2")
+           sys.exit()
+
+regionCode = sys.argv[1]
+
+rssUrl = "http://www.kma.go.kr/weather/forecast/mid-term-rss3.jsp"
+
+params = parse.urlencode(values)
+
+url = rssUrl + "?" + params
+
+print("url=", url)
+
+# Download RSS Data
+data = req.urlopen(url).read()
+text = data.decode("utf-8")
+
+
+
+# Beautiful Soup
